@@ -1,24 +1,27 @@
 package org.example.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.dto.EmployeeDto;
+import org.example.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/employee")
+@RequiredArgsConstructor
 public class EmployeeController {
-    List<EmployeeDto> list=new ArrayList<>();
+
+    private final EmployeeService service;
     @PostMapping("/add")
-    List<EmployeeDto> persist(@RequestBody EmployeeDto empDto){
-        list.add(empDto);
-        return list;
+    EmployeeDto persist(@RequestBody EmployeeDto empDto){
+        return service.persist(empDto);
+
     }
     @GetMapping
-    void get(){
-        System.out.println("hi");
+    List<EmployeeDto> getList(){
+        return service.getList();
     }
 
 }
